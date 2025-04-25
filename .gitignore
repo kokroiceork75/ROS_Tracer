@@ -1,0 +1,17 @@
+# 忽略編譯資料夾
+build/
+devel/
+
+# 忽略 log 檔案
+*.log
+
+# 忽略編譯快取
+__pycache__/
+*.pyc
+
+# 忽略暫存檔、備份檔
+*.swp
+*.swo
+*.bak
+tracer_velodyne/
+

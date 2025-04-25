@@ -1,0 +1,68 @@
+[settings]
+    arch=x86_64
+    build_type=Release
+    compiler=gcc
+    compiler.libcxx=libstdc++
+    compiler.version=9
+    os=Linux
+
+[requires]
+    ceres-solver/1.Y.Z
+    osqp/0.6.3
+
+[options]
+
+
+[full_settings]
+    arch=x86_64
+    build_type=Release
+    compiler=gcc
+    compiler.libcxx=libstdc++
+    compiler.version=9
+    os=Linux
+
+[full_requires]
+    ceres-solver/1.14.0:7ee9e59cc40cbdec97f1dfe43334eb2e437be01c
+    eigen/3.4.0:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
+    gflags/2.2.2:8d9612c699e0c76c45e410a0de6c38f8b4d74f9f
+    glog/0.6.0:e1fd1ca7313b041d4a3a96b420b488633327c4d0
+    libunwind/1.8.0:c8c888b1fc83f5e0145e8890c2af3bd4e0005c98
+    osqp/0.6.3:2af715f34a7c8c2aeae57b25be0a52c4110dc502
+    xz_utils/5.4.5:6af9cc7cb931c5ad942174fd7838eb655717c709
+    zlib/1.3.1:6af9cc7cb931c5ad942174fd7838eb655717c709
+
+[full_options]
+    ceres-solver:shared=True
+    ceres-solver:use_CXX11=False
+    ceres-solver:use_CXX11_threads=False
+    ceres-solver:use_TBB=False
+    ceres-solver:use_custom_blas=True
+    ceres-solver:use_eigen_sparse=True
+    ceres-solver:use_gflags=deprecated
+    ceres-solver:use_glog=True
+    ceres-solver:use_schur_specializations=True
+    eigen:MPL2_only=False
+    gflags:namespace=gflags
+    gflags:nothreads=True
+    gflags:shared=True
+    glog:shared=True
+    glog:with_gflags=True
+    glog:with_threads=True
+    glog:with_unwind=True
+    libunwind:coredump=True
+    libunwind:minidebuginfo=True
+    libunwind:ptrace=True
+    libunwind:setjmp=True
+    libunwind:shared=True
+    libunwind:zlibdebuginfo=True
+    osqp:shared=True
+    xz_utils:fPIC=True
+    xz_utils:shared=False
+    zlib:fPIC=True
+    zlib:shared=False
+
+[recipe_hash]
+
+
+[env]
+
