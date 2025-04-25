@@ -4,7 +4,7 @@
 
 ## 1. 下載有問題的話可以參考以下原始連結 or ask chatGPT
 
-### 注意：如果以下方式有問題，請參考上述下載網址自行下載，這個kokroiceork75的README是我自己寫的，所以下載可能有錯，但檔案是沒問題的，所以參考以上下載連結後，再把裡面的檔案替換成這個GitHub的檔案
+### 注意：如果以下方式有問題，請參考上述下載網址自行下載，這個kokroiceork75的README是我自己寫的，所以下載可能有錯，但檔案是沒問題的，所以參考原始連結下載後，再把裡面的檔案替換成這個GitHub的檔案
 
 ```
 https://github.com/agilexrobotics/ugv_gazebo_sim.git
