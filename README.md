@@ -70,3 +70,66 @@ rosdep install --from-paths src --ignore-src -r -y
 catkin_make
 source devel/setup.bash
 ```
+
+## 4. 各種功能
+
+### a. Real world
+
+bringup the real robot.
+
+```
+rosrun tracer_bringup setup_can2usb.bash 
+```
+
+bringup Lidar and robot integration
+
+```
+roslaunch tracer_bringup tracer_integrate.launch 
+```
+
+default navigation
+
+```
+roslaunch tracer_navigation tracer_navigation_auto.launch 
+```
+
+fuzzy navigation
+
+```
+roslaunch tracer_navigation tracer_navigation_fuzzy.launch 
+rosrun controller wei_move_along 
+rosrun controller wei_odom
+rosrun controller wei_sub
+```
+
+### b. Simulation
+
+open gazebo. tracer_car, tracer_car_map ... all can launch different simulation world.
+
+```
+roslaunch tracer_gazebo_sim tracer_car.launch 
+```
+
+default navigation / fuzzy navigation 擇一，fuzzy waypoint 加在fuzzy navigation後可以啟動巡航
+
+default navigation
+
+```
+roslaunch tracer_navigation tracer_navigation_auto.launch 
+```
+
+fuzzy navigation(單點導航)
+
+```
+roslaunch tracer_navigation tracer_navigation_fuzzy.launch 
+rosrun controller wei_move_along 
+rosrun controller wei_odom
+rosrun controller wei_sub
+```
+
+fuzzy waypoint(巡航 ＝ 多點導航)
+
+```
+rosrun contoller fuzzy_waypoint
+```
+
