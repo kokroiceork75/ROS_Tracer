@@ -1,6 +1,6 @@
 # ROS_Tracer: 
 
-## 包含所有Tracer and velodyne VLP-16模擬和實做
+包含所有Tracer and velodyne VLP-16模擬和實做
 
 ## 1. 下載有問題的話可以參考以下原始連結 or ask chatGPT
 
