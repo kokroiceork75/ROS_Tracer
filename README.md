@@ -12,7 +12,7 @@ https://github.com/lmark1/velodyne_simulator.git
 
 ## 2. 可以參考以下步驟
 
-​### development environment is: Ubuntu 20.04 + ROS noetic 
+### development environment is: Ubuntu 20.04 + ROS noetic 
 
 Download and install ros-control function package, ros-control is the robot control middleware provided by ROS
 
