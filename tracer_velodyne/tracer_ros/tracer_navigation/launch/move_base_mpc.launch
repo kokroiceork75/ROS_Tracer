@@ -1,0 +1,13 @@
+<launch>
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="true">
+    <param name="base_global_planner" value="navfn/NavfnROS"/>
+    <param name="base_local_planner" value="rmp/controller/MPCController" /> <!-- 替換 DWA -->
+    <rosparam file="$(find tracer_navigation)/p3dx_config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find tracer_navigation)/p3dx_config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find tracer_navigation)/p3dx_config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find tracer_navigation)/p3dx_config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find tracer_navigation)/p3dx_config/move_base_params.yaml" command="load" />
+    <rosparam file="$(find tracer_navigation)/p3dx_config/mpc_controller_params.yaml" command="load" /> <!-- 替換 DWA 配置文件 -->
+    <rosparam file="$(find tracer_navigation)/p3dx_config/global_planner_params.yaml" command="load" />
+  </node>
+</launch>

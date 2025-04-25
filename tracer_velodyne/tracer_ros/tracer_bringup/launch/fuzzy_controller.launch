@@ -1,0 +1,23 @@
+<launch>
+    <!--
+       Launch file to run three executables (move_along_tracer_4, odom_new, sub_pub_cmd_test_new)
+       from the 'controller' package.
+    -->
+    
+    <!-- 1. 啟動 move_along_tracer_4.exe -->
+    <node pkg="controller" type="move_along_tracer_4" name="move_along_tracer_4" output="screen">
+        <!-- 這裡可以加參數或 remap，如有需要 -->
+    </node>
+    
+    <!-- 2. 啟動 odom_new.exe -->
+    <node pkg="controller" type="odom_new" name="odom_new" output="screen">
+        <!-- 若有需要，可在這裡設定參數或話題 remap -->
+    </node>
+    
+    <!-- 3. 啟動 sub_pub_cmd_test_new.exe -->
+    <node pkg="controller" type="sub_pub_cmd_test_new" name="communication_node_" output="screen">
+        <!-- 可在這裡加入額外參數或 remap 設定 -->
+    </node>
+    
+</launch>
+

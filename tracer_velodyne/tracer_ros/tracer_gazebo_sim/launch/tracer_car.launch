@@ -1,0 +1,129 @@
+<launch>
+
+    <arg name="robot_namespace" default="/"/>
+    <arg name="world_name" default="$(find tracer_gazebo_sim)/worlds/clearpath_playpen.world"/>
+	<arg name="x" default="-9.0"/>
+    <arg name="y" default="-2.0"/>
+    <arg name="z" default="0.0"/>
+    <arg name="yaw" default="1.57414"/>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    
+        <!--<arg name="world_name" value="$(arg world_name)"/>-->
+        <!-- <arg name="world_name" value="/home/user/gazebo_map/turtlebot3_house.world"/> -->
+        <!-- <arg name="world_name" value="$(find tracer_gazebo_sim)/worlds/2023test.world"/> -->
+        
+        <!-- initial position of robot in 20250102.world is (-8.0, -8.0, 0.0) -->
+        <!-- <arg name="world_name" value="/home/user/gazebo_map/20250102.world"/> -->
+        
+        <!-- initial position of robot in env1.world is (-9.0, -2.0, 0.0) -->
+        <arg name="world_name" value="/home/user/gazebo_map/env1.world"/>
+        
+        <!-- initial position of robot in env2.world is (-23.7, -3.3, 0.0) -->
+        <!-- <arg name="world_name" value="/home/user/gazebo_map/env2.world"/> -->
+        
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+	<param name="robot_description" command="$(find xacro)/xacro --inorder $(find tracer_description)/urdf/tracer_v1.xacro" />
+	
+    <!--<include file="$(find tracer_gazebo_sim)/launch/spawn_tracer_v1.launch"></include>-->
+	
+	
+	<node name="spawn_tracer_model" pkg="gazebo_ros" type="spawn_model" args="-x $(arg x)
+              -y $(arg y)
+              -z $(arg z)
+              -Y $(arg yaw)
+              -unpause
+              -urdf
+              -param robot_description
+              -model 'tracer$(arg robot_namespace)'" />
+
+    <rosparam file="$(find tracer_gazebo_sim)/config/tracer_v1_control.yaml" command="load"/>
+
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="tracer_state_controller tracer_motor_r_controller tracer_motor_l_controller "/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+    <node name="tracer_skid_steer_controller" pkg="tracer_gazebo_sim" type="tracer_skid_steer_controller">
+        <param name="robot_namespace" type="string" value="$(arg robot_namespace)" />
+    </node>
+    
+    <!-- declare arguments with default values -->
+  <arg name="calibration" default="$(find velodyne_pointcloud)/params/VLP16db.yaml"/>
+  <arg name="device_ip" default="" />
+  <arg name="frame_id" default="velodyne" />
+  <arg name="manager" default="$(arg frame_id)_nodelet_manager" />
+  
+  <!-- ##############wei change velodyne VLP-16 range##################### -->
+  <arg name="max_range" default="100.0" />
+  <arg name="min_range" default="0.1" />
+  
+  <arg name="pcap" default="" />
+  <arg name="port" default="2368" />
+  <arg name="read_fast" default="false" />
+  <arg name="read_once" default="false" />
+  <arg name="repeat_delay" default="0.0" />
+  <arg name="rpm" default="600.0" />
+  <arg name="gps_time" default="false" />
+  <arg name="pcap_time" default="false" />
+  <arg name="cut_angle" default="-0.01" />
+  <arg name="timestamp_first_packet" default="false" />
+  <arg name="laserscan_ring" default="-1" />
+  <arg name="laserscan_resolution" default="0.007" />
+  <arg name="organize_cloud" default="false" />
+
+  <!-- wei change, to add VLP-16 to robot and map the 3D lidar to 2D --> 
+  <!-- start nodelet manager and driver nodelets -->
+  <include file="$(find velodyne_driver)/launch/nodelet_manager.launch">
+    <arg name="device_ip" value="$(arg device_ip)"/>
+    <arg name="frame_id" value="$(arg frame_id)"/>
+    <arg name="manager" value="$(arg manager)" />
+    <arg name="model" value="VLP16"/>
+    <arg name="pcap" value="$(arg pcap)"/>
+    <arg name="port" value="$(arg port)"/>
+    <arg name="read_fast" value="$(arg read_fast)"/>
+    <arg name="read_once" value="$(arg read_once)"/>
+    <arg name="repeat_delay" value="$(arg repeat_delay)"/>
+    <arg name="rpm" value="$(arg rpm)"/>
+    <arg name="gps_time" value="$(arg gps_time)"/>
+    <arg name="pcap_time" value="$(arg pcap_time)"/>
+    <arg name="cut_angle" value="$(arg cut_angle)"/>
+    <arg name="timestamp_first_packet" value="$(arg timestamp_first_packet)"/>
+  </include>
+
+  <!-- start transform nodelet -->
+  <include file="$(find velodyne_pointcloud)/launch/transform_nodelet.launch">
+    <arg name="model" value="VLP16"/>
+    <arg name="calibration" value="$(arg calibration)"/>
+    <arg name="manager" value="$(arg manager)" />
+    <arg name="fixed_frame" value="" />
+    <arg name="target_frame" value="" />
+    <arg name="max_range" value="$(arg max_range)"/>
+    <arg name="min_range" value="$(arg min_range)"/>
+    <arg name="organize_cloud" value="$(arg organize_cloud)"/>
+  </include>
+
+  <!-- start laserscan nodelet -->
+  <include file="$(find velodyne_pointcloud)/launch/laserscan_nodelet.launch">
+    <arg name="manager" value="$(arg manager)" />
+    <arg name="ring" value="$(arg laserscan_ring)"/>
+    <arg name="resolution" value="$(arg laserscan_resolution)"/>
+  </include>
+  
+  <!-- 添加 laser_filters -->
+    <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter" output="screen">
+        <rosparam command="load" file="$(find velodyne_pointcloud)/laser_filter.yaml"/>
+        <remap from="scan" to="/scan"/>
+        <remap from="scan_filtered" to="/scan_filtered"/>
+    </node>
+  <!-- wei change, to add VLP-16 to robot and map the 3D lidar to 2D --> 
+	<!-- rviz -->
+	<!--<group if="true">
+	  <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find tracer_description)/rviz/navigation.rviz"/>
+	</group>-->            
+
+</launch>

@@ -1,0 +1,16 @@
+MPCController:
+  max_v: 1.5          # 最大線速度，與 DWA 的 max_vel_x 一致
+  min_v: 0.0
+  max_v_inc: 0.5      # 線速度增量限制
+  max_w: 1.0          # 最大角速度，與 DWA 的 max_vel_theta 一致
+  min_w: 0.0
+  max_w_inc: 1.0      # 角速度增量限制
+  goal_dist_tolerance: 0.1  # 目標距離容差，與 DWA 的 xy_goal_tolerance 一致
+  rotate_tolerance: 0.1     # 旋轉容差，與 DWA 的 yaw_goal_tolerance 一致
+  predicting_time_domain: 4 # 預測視野
+  control_time_domain: 4    # 控制視野
+  Q_matrix_diag: [1.0, 1.0, 0.1]  # 狀態權重 [x, y, θ]
+  R_matrix_diag: [0.1, 0.1]       # 控制權重 [v, w]
+  lookahead_time: 1.5       # 前瞻時間
+  min_lookahead_dist: 0.3   # 最小前瞻距離
+  max_lookahead_dist: 0.9   # 最大前瞻距離

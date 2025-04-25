@@ -1,0 +1,21 @@
+<!-- -*- mode: XML -*- -->
+<!-- run velodyne_pointcloud/TransformNodelet in a nodelet manager for a VLP-16 -->
+
+<launch>
+
+  
+  
+  <!--slam部份-->
+  <arg name="slam_methods" default="gmapping"/>
+  <arg name="configuration_basename" default="velodyne.lua"/>
+  <arg name="open_rviz" default="true"/>
+  
+  <include file="$(find tracer_gazebo_sim)/launch/tracer_gmapping.launch">
+    <!--<arg name="model" value="$(arg model)"/>-->
+    <arg name="configuration_basename" value="$(arg configuration_basename)"/>
+    <remap from="/scan" to="/scan_filtered"/>
+  </include>
+  <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find tracer_description)/rviz/navigation_octo.rviz"/>
+
+</launch>

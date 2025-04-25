@@ -1,0 +1,12 @@
+map_type: costmap
+obstacle_range: 5.0
+raytrace_range: 5.5
+footprint: [[0.31, 0.2925], [0.31, -0.2925], [-0.31, -0.2925], [-0.31, 0.2925]]
+resolution: 0.05
+inflation_radius: 0.35
+#inflation_radius: 0.5
+cost_scaling_factor: 3.0
+
+observation_sources: scan
+#scan: {sensor_frame: velodyne, data_type: LaserScan, topic: /scan, marking: true, clearing: true, inf_is_valid: false}
+scan: {sensor_frame: velodyne, data_type: LaserScan, topic: /scan_filtered, marking: true, clearing: true, inf_is_valid: false}

@@ -1,0 +1,6 @@
+scan_filter_chain:
+- name: angle_filter
+  type: laser_filters/LaserScanAngularBoundsFilter  # 添加包名 laser_filters/
+  params:
+    lower_angle: -1.5708  # -90度（左邊界）
+    upper_angle: 1.5708   # +90度（右邊界）
