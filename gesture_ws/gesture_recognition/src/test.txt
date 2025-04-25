@@ -1,0 +1,69 @@
+#修改後但沒測試過  使ROCK可以旋轉一圈
+#include <ros/ros.h>
+#include <std_msgs/String.h>
+#include <geometry_msgs/Twist.h>
+
+class RobotController
+{
+public:
+    RobotController()
+    {
+        // Initialize the subscriber to the /gesture topic
+        gesture_sub = nh.subscribe("/gesture", 10, &RobotController::gestureCallback, this);
+
+        // Initialize the publisher to the /cmd_vel topic
+        cmd_vel_pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
+    }
+
+    void gestureCallback(const std_msgs::String::ConstPtr& msg)
+    {
+        ROS_INFO("Received Gesture: [%s]", msg->data.c_str());
+
+        geometry_msgs::Twist vel_msg;
+
+        if (msg->data == "good")
+        {
+            ROS_INFO("Moving the robot forward.");
+            vel_msg.linear.x = 0.5;  // Set speed to 0.5 m/s
+            vel_msg.angular.z = 0.0; // No angular velocity
+            cmd_vel_pub.publish(vel_msg);
+        }
+        else if (msg->data == "ROCK")
+        {
+            ROS_INFO("Turning the robot 360 degrees.");
+            rotate360();
+        }
+    }
+
+    void rotate360()
+    {
+        geometry_msgs::Twist vel_msg;
+        vel_msg.linear.x = 0.0;  // No linear velocity
+        vel_msg.angular.z = 1.0; // Set angular velocity to turn right
+
+        // Publish the velocity for a specific time to turn 360 degrees
+        ros::Rate rate(10); // 10 Hz
+        for(int i = 0; i < 35; ++i)  // Adjust this duration based on your robot's turning speed
+        {
+            cmd_vel_pub.publish(vel_msg);
+            rate.sleep();
+        }
+
+        // Stop the robot after turning
+        vel_msg.angular.z = 0.0;
+        cmd_vel_pub.publish(vel_msg);
+    }
+
+private:
+    ros::NodeHandle nh;
+    ros::Subscriber gesture_sub;
+    ros::Publisher cmd_vel_pub;
+};
+
+int main(int argc, char **argv)
+{
+    ros::init(argc, argv, "gesture_control");
+    RobotController robotController;
+    ros::spin();
+    return 0;
+}
