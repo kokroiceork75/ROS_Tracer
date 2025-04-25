@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>controller</name>
+  <version>0.0.0</version>
+  <description>The controller package</description>
+  <maintainer email="913982779@qq.com">winter</maintainer>
+  <license>GPL3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>pcl_ros</depend>
+  <depend>pcl_conversions</depend>
+  <depend>nav_core</depend>
+  <depend>costmap_2d</depend>
+  <depend>tf2_ros</depend>
+  <depend>pluginlib</depend>
+  <depend>base_local_planner</depend>
+  <depend>cv_bridge</depend>
+	<depend>image_transport</depend>
+	<depend>opencv</depend>
+
+  <export>
+    <nav_core plugin="${prefix}/mpc_controller_plugin.xml" />
+  </export>
+</package>

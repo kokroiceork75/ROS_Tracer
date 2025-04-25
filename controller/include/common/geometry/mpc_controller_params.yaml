@@ -1,0 +1,18 @@
+MPCController:
+  goal_dist_tolerance: 0.1    # 與 DWA 的 xy_goal_tolerance 一致
+  rotate_tolerance: 0.1       # 與 DWA 的 yaw_goal_tolerance 一致
+  base_frame: "base_link"     # 與您的 robot_base_frame 一致
+  map_frame: "map"
+  lookahead_time: 2.0         # 類似 DWA 的 sim_time，設為 2.0s
+  min_lookahead_dist: 0.3     # 最小前瞻距離
+  max_lookahead_dist: 0.9     # 最大前瞻距離
+  max_v: 1.5                  # 與 DWA 的 max_vel_trans 一致
+  min_v: 0.0
+  max_v_inc: 0.5              # 控制增量，根據需要調整
+  max_w: 1.0                  # 與 DWA 的 max_vel_theta 一致
+  min_w: 0.0
+  max_w_inc: 1.0              # 控制增量，根據需要調整
+  predicting_time_domain: 4   # 預測視界
+  control_time_domain: 4      # 控制視界
+  Q_matrix_diag: [10.0, 10.0, 1.0]  # 狀態誤差權重 [x, y, theta]
+  R_matrix_diag: [1.0, 1.0]         # 控制誤差權重 [v, w]
