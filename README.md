@@ -1,8 +1,10 @@
 # ROS_Tracer: 
 
-包含所有Tracer and velodyne VLP-16模擬和實做
+20250425 update. 包含所有Tracer and velodyne VLP-16模擬和實做
 
 ## 1. 下載有問題的話可以參考以下原始連結 or ask chatGPT
+
+### 注意：如果以下方式有問題，請參考上述下載網址自行下載，這個kokroiceork75的README是我自己寫的，所以下載可能有錯，但檔案是沒問題的，所以參考以上下載連結後，再把裡面的檔案替換成這個GitHub的檔案
 
 ```
 https://github.com/agilexrobotics/ugv_gazebo_sim.git
@@ -53,8 +55,6 @@ sudo apt-get install ros-noetic-teleop-twist-keyboard
 ## 3. 如何使用
 
 ### create workspace
-
-### 注意：如果以下方式有問題，請參考上述下載網址自行下載，這個kokroiceork75的README是我自己寫的，所以下載可能有錯，但檔案是沒問題的，所以參考以上下載連結後，再把裡面的檔案替換成這個GitHub的檔案
 
 ### bashrc可以source，以防每次開terminal都要source一次
 
