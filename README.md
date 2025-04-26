@@ -1,8 +1,10 @@
 # ROS_Tracer: 
 
-20250425 update. 包含所有Tracer and velodyne VLP-16模擬和實做
+20250425 update. 
 
-## 1. 下載有問題的話可以參考以下原始連結 or ask chatGPT
+包含所有始祖尤彌爾debug的Tracer and velodyne VLP-16模擬和實做，velodyne simulator不是官方的，可能會有問題
+
+## 1. 下載任何檔案有問題或是缺少任何套件的話可以參考以下原始連結 or ask chatGPT
 
 ### 注意：如果以下方式有問題，請參考上述下載網址自行下載，這個kokroiceork75的README是我自己寫的，所以下載可能有錯，但檔案是沒問題的，所以參考原始連結下載後，再把裡面的檔案替換成這個GitHub的檔案
 
