@@ -141,6 +141,8 @@ rosrun controller wei_sub
 
 open gazebo. tracer_car, tracer_car_map ... all can launch different simulation world.
 
+注意：tracer_gazebo_sim/launch裡面有幾個模擬世界可以開，模擬世界的檔案會存在gazebo_map這個資料夾內，要額外下載才能用，注意下載路徑要跟launch file一致
+
 ```
 roslaunch tracer_gazebo_sim tracer_car.launch 
 ```
