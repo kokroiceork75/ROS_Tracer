@@ -122,6 +122,8 @@ bringup Lidar and robot integration
 roslaunch tracer_bringup tracer_integrate.launch 
 ```
 
+#### Default Navigation / Fuzzy Navigation 擇一，Fuzzy Waypoint 加在Fuzzy Navigation後可以啟動巡航
+
 [Default Navigation]
 
 ```
@@ -147,8 +149,6 @@ open gazebo. tracer_car, tracer_car_map ... all can launch different simulation 
 roslaunch tracer_gazebo_sim tracer_car.launch 
 ```
 
-default navigation / fuzzy navigation 擇一，fuzzy waypoint 加在fuzzy navigation後可以啟動巡航
-
 [Default Navigation]
 
 ```
@@ -164,7 +164,7 @@ rosrun controller wei_odom
 rosrun controller wei_sub
 ```
 
-fuzzy waypoint(巡航 ＝ 多點導航)
+Fuzzy Waypoint(巡航 ＝ 多點導航)
 
 ```
 rosrun contoller fuzzy_waypoint
