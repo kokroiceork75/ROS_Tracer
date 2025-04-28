@@ -168,7 +168,7 @@ roslaunch tracer_gazebo_sim tracer_car.launch
 roslaunch tracer_navigation tracer_navigation_auto.launch 
 ```
 
-[Fuzzy Navigation(單點導航)]
+[Fuzzy Navigation 單點導航]
 
 ```
 roslaunch tracer_navigation tracer_navigation_fuzzy.launch 
@@ -177,7 +177,7 @@ rosrun controller wei_odom
 rosrun controller wei_sub
 ```
 
-Fuzzy Waypoint(巡航 ＝ 多點導航)
+Fuzzy Waypoint 巡航 ＝ 多點導航
 
 ```
 rosrun contoller fuzzy_waypoint
