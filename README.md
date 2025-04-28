@@ -112,7 +112,7 @@ cd tracer_ws
 mkdir src
 cd src
 catkin_init_workspace
-git clone this url
+git clone https://github.com/kokroiceork75/ROS_Tracer.git
 cd tracer_ws
 rosdep install --from-paths src --ignore-src -r -y 
 catkin_make
