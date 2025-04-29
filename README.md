@@ -137,13 +137,13 @@ roslaunch tracer_bringup tracer_integrate.launch
 
 #### Default Navigation / Fuzzy Navigation 擇一，Fuzzy Waypoint 加在Fuzzy Navigation後可以啟動巡航
 
-#### [Default Navigation]
+[Default Navigation]
 
 ```
 roslaunch tracer_navigation tracer_navigation_auto.launch 
 ```
 
-#### [Fuzzy Navigation]
+[Fuzzy Navigation]
 
 ```
 roslaunch tracer_navigation tracer_navigation_fuzzy.launch 
@@ -166,13 +166,13 @@ open gazebo. tracer_car, tracer_car_map ... all can launch different simulation 
 roslaunch tracer_gazebo_sim tracer_car.launch 
 ```
 
-#### [Default Navigation]
+[Default Navigation]
 
 ```
 roslaunch tracer_navigation tracer_navigation_auto.launch 
 ```
 
-#### [Fuzzy Navigation 單點導航]
+[Fuzzy Navigation 單點導航]
 
 ```
 roslaunch tracer_navigation tracer_navigation_fuzzy.launch 
