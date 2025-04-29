@@ -1,4 +1,4 @@
-# introduce the controller
+# introduce the move_along_wall controller
 
 temp_wx = version x裡面離牆最近的controller
 
