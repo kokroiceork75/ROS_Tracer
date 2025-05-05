@@ -60,6 +60,12 @@ https://github.com/ros-drivers/velodyne.git
 https://github.com/lmark1/velodyne_simulator.git
 ```
 
+### 下載QP solver to home/user/
+
+```
+https://github.com/coin-or/qpOASES.git
+```
+
 ## 2. 可以參考以下步驟
 
 ### Development Environment: Ubuntu 20.04 + ROS noetic 
