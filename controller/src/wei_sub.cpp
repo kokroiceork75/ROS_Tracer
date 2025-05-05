@@ -34,8 +34,8 @@ using namespace std;
 const double dwall = 0.3;
 // danger_threshold現在是定值 不是變數
 double allow_goal_rms = 0.3;
-const double f_along = (dwall + 0.45 - 0.15); // front進沿牆，加多少根據經驗可修改
-const double s_along = (dwall + 0.50 - 0.15); // side,加多少根據經驗可修改
+const double f_along = (dwall + 0.45 + 0.15); // front進沿牆，加多少根據經驗可修改
+const double s_along = (dwall + 0.50 + 0.15); // side,加多少根據經驗可修改
 const double danger_threshold1 = (robot_margin + dwall), 
 				danger_threshold2 = (robot_margin + dwall) / cos(25 * M_PI / 180.0), 
 				danger_threshold3 = (0.132 + dwall) / sin(45 * M_PI / 180.0),
@@ -101,6 +101,7 @@ class cmd_sub_pub
       ros::Publisher y2_pub;
       ros::Publisher pub_1;
       ros::Publisher pub_2;
+      ros::Publisher controller_flag_pub;
       bool reached_goal;  // **新增變數來標記是否到達目標**
 
    public:
@@ -127,6 +128,8 @@ class cmd_sub_pub
          // sub_info1 =n.subscribe("chatter1",3000, &cmd_sub_pub::chatter1Callback,this);
          sub_info2 =n.subscribe("chatter2",3000, &cmd_sub_pub::chatter2Callback,this);
          sub_amcl = n.subscribe("/move_base/feedback", 3000, &cmd_sub_pub::amcl_Callback,this);
+         // record which controller be uesd
+         controller_flag_pub = n.advertise<std_msgs::Int32>("/controller_flag", 3000);
       
          double minimum(int, int , int );
          void pathCallback1(const geometry_msgs::Twist& vel);
@@ -168,14 +171,14 @@ class cmd_sub_pub
             int angle_deg = angle_rad*180/M_PI;
             if (std::isinf(laser_temp_scan[i]))
 				{
-					laser_temp[angle_deg] = 0.50005;
+					laser_temp[angle_deg] = 10.4999;
 				}		
 				else
 				{
-					// 過濾小於0.5公尺的盲區值，設為0.5005
+					// 過濾小於0.5公尺的盲區值
 					if (laser_temp_scan[i] <= 0.5)
 					{
-						laser_temp[angle_deg] = 0.5005;
+						laser_temp[angle_deg] = 0.4997;
 					}
 					else
 					{
@@ -287,8 +290,25 @@ class cmd_sub_pub
       {
          danger = 0, danger_flag = 0;
          // wei need change, spin in place implementation
-         bool left_danger = (laser_temp[195] <= 0.5) || (laser_temp[245] <= 0.05) || (laser_temp[225] <= 0.505) /*||(laser_temp[270] < danger_threshold1 && laser_temp[245] < danger_threshold2 && laser_temp[225] < danger_threshold3)*/;
-         bool right_danger = (laser_temp[165] <= 0.5) ||(laser_temp[115] <= 0.05) || (laser_temp[135] <= 0.505) /*|| (laser_temp[90] < danger_threshold1 && laser_temp[115] < danger_threshold2 && laser_temp[135] < danger_threshold3)*/;
+         // bool right_danger = (laser_temp[165] <= 0.51) ||(laser_temp[125] <= 0.51) || (laser_temp[110] <= 0.51) /*|| (laser_temp[90] < danger_threshold1 && laser_temp[115] < danger_threshold2 && laser_temp[135] < danger_threshold3)*/;
+         // bool left_danger = (laser_temp[195] <= 0.51) || (laser_temp[235] <= 0.51) || (laser_temp[250] <= 0.51) /*||(laser_temp[270] < danger_threshold1 && laser_temp[245] < danger_threshold2 && laser_temp[225] < danger_threshold3)*/;
+
+         int k; // 用於 minimum 函數的索引
+         // 檢查右側危險：165-170度、120-125度、105-110度的最小值
+         double spin_dis = 0.51;
+         bool right_danger = (minimum(165, 171, k) <= spin_dis) || 
+                           ((minimum(113, 118, k) <= spin_dis) /*&& (minimum(120, 126, k) <= spin_dis)*/) || 
+                           (minimum(97, 103, k) <= spin_dis);
+                           
+         // 檢查左側危險：190-195度、230-235度、245-250度的最小值
+         bool left_danger = (minimum(190, 196, k) <= spin_dis) || 
+                           ((minimum(242, 247, k) <= spin_dis) /*&& (minimum(235, 241, k) <= spin_dis)*/) || 
+                           (minimum(257, 263, k) <= spin_dis);
+         double mini_1 = minimum(165, 171, k), mini_2 = minimum(113, 118, k), mini_3 = minimum(97, 103, k), mini_4 = minimum(112, 117, k);
+         double mini_5 = minimum(190, 196, k), mini_6 = minimum(242, 247, k), mini_7 = minimum(257, 263, k), mini_8 = minimum(243, 248, k);
+         printf("right danger = %.2f\t%.2f\t%.2f\t%.2f\n", mini_1, mini_2, mini_3, mini_4);
+         printf("left  danger = %.2f\t%.2f\t%.2f\t%.2f\n", mini_5, mini_6, mini_7, mini_8);
+
          // bool left_danger = false, right_danger = false;
          // for(int i = 115; i <= 175; i = i+5)
          // {
@@ -339,6 +359,7 @@ class cmd_sub_pub
       void decide_controller(int jj) 
       {
          double distance_to_goal = sqrt(pow(goal_x - amcl_x, 2) + pow(goal_y - amcl_y, 2));
+         std_msgs::Int32 controller_flag;
          if (distance_to_goal < allow_goal_rms && !reached_goal) 
          {
             msg.linear.x = 0.0;
@@ -391,14 +412,17 @@ class cmd_sub_pub
             {
                msg.linear.x = 0.0;
                msg.angular.z = spin_right;
+               controller_flag.data = 3; // Spin 控制器
             }
             else if(danger_flag == 3)
             {
                msg.linear.x = 0.0;
                msg.angular.z = spin_left;
+               controller_flag.data = 3; // Spin 控制器
             }
-            printf("laser[115] = %f\tlaser[135] = %f\tlaser[165] = %f\n", laser_temp[115], laser_temp[135], laser_temp[165]);
-            printf("laser[245] = %f\tlaser[225] = %f\tlaser[195] = %f\n", laser_temp[245], laser_temp[225], laser_temp[195]);
+            // printf("laser[165] = %f\tlaser[125] = %f\tlaser[110] = %f\n", laser_temp[165], laser_temp[125], laser_temp[110]);
+            // printf("laser[195] = %f\tlaser[235] = %f\tlaser[250] = %f\n", laser_temp[195], laser_temp[235], laser_temp[250]);
+            
          } 
          else
          {
@@ -439,6 +463,7 @@ class cmd_sub_pub
                // 使用 wei_move_along.cpp
                msg.linear.x = vel_a; // vel_a = vel from along wall
                msg.angular.z = angular_a;
+               controller_flag.data = 2; // Obstacle Boundary Following 控制器
                printf("++++++++++++++++++++++++++++++++  選擇：wei_move_along.cpp  ++++++++++++++++++++++++++++\n");
                printf("left_min = %f\tright_min = %f\n", left_min, right_min);
             } 
@@ -447,6 +472,7 @@ class cmd_sub_pub
                // 使用 wei_odom.cpp
                msg.linear.x = vel_s; // vel_s = vel from search 
                msg.angular.z = angular_s;
+               controller_flag.data = 1; // Target Search 控制器
                printf("+++++++++++++++++++++++++++++++  選擇：wei_odom.cpp  ++++++++++++++++++++++++++++++\n");
                printf("left_min = %f\tright_min = %f\n", left_min, right_min);
             }
@@ -455,12 +481,16 @@ class cmd_sub_pub
          // 發布最終速度
          printf("linear: %f\tangular: %f\n", msg.linear.x, msg.angular.z);
          pub.publish(msg);
+         controller_flag_pub.publish(controller_flag);
       }
       void stop()
       {
          msg.linear.x =0.;
          msg.angular.z=0.;
          pub.publish(msg);
+         std_msgs::Int32 controller_flag;
+         controller_flag.data = 0;
+         controller_flag_pub.publish(controller_flag);
          ROS_INFO("+++++++++++++++ Navigation is the  end +++++++++++++++\n");
          // ros::shutdown();	wei change 20250306
       } 
@@ -523,6 +553,7 @@ class cmd_sub_pub
          tf2::convert(amcl->feedback.base_position.pose.orientation, q);
          tf2::Matrix3x3(q).getRPY(roll_t, pitch_t, yaw_t);
          amcl_z = yaw_t;
+         ROS_INFO("sub_amcl_z: %f", amcl_z);
          // 座標系轉換，與 amcl_pose_sub_pub_1 一致
          // wei need change
          // if (amcl_z <= -M_PI / 2 && amcl_z >= -M_PI)

@@ -234,14 +234,14 @@ class amcl_pose_sub_pub_1
         // }
         if (std::isinf(laser_temp_scan[i]))
 				{
-					laser_temp[angle_deg] = 0.50005;
+					laser_temp[angle_deg] = 10.4999;
 				}		
 				else
 				{
 					// 過濾小於0.5公尺的盲區值，設為0.5005
 					if (laser_temp_scan[i] <= 0.5)
 					{
-						laser_temp[angle_deg] = 0.5005;
+						laser_temp[angle_deg] = 0.4997;
 					}
 					else
 					{

@@ -118,6 +118,12 @@
     <arg name="ring" value="$(arg laserscan_ring)"/>
     <arg name="resolution" value="$(arg laserscan_resolution)"/>
   </include>
+  <!-- 添加 laser_filters -->
+    <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter" output="screen">
+        <rosparam command="load" file="$(find velodyne_pointcloud)/laser_filter.yaml"/>
+        <remap from="scan" to="/scan"/>
+        <remap from="scan_filtered" to="/scan_filtered"/>
+    </node>
   <!-- wei change, to add VLP-16 to robot and map the 3D lidar to 2D --> 
 	<!-- rviz -->
 	<!--<group if="true">

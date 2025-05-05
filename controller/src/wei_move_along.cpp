@@ -19,8 +19,8 @@
 
 const double dwall = 0.3;
 double vel_adj = 0.5;			
-const double f_along = (dwall + 0.45 - 0.15); // front進沿牆，加多少根據經驗可修改
-const double s_along = (dwall + 0.5 - 0.15); // side,加多少根據經驗可修改
+const double f_along = (dwall + 0.45 + 0.05); // front進沿牆，加多少根據經驗可修改
+const double s_along = (dwall + 0.50 + 0.05); // side,加多少根據經驗可修改
 double robot_margin = 0.285;
 const double danger_threshold1 = (robot_margin + dwall), 
 				danger_threshold2 = (robot_margin + dwall) / std::cos(20 * M_PI / 180.0), 
@@ -183,14 +183,14 @@ class controller
 				// }		
 				if (std::isinf(laser_temp_scan[i]))
 				{
-					laser_temp[angle_deg] = 0.50005;
+					laser_temp[angle_deg] = 10.4999;
 				}		
 				else
 				{
 					// 過濾小於0.5公尺的盲區值，設為0.5005
 					if (laser_temp_scan[i] <= 0.5)
 					{
-						laser_temp[angle_deg] = 0.5005;
+						laser_temp[angle_deg] = 0.4997;
 					}
 					else
 					{
@@ -477,12 +477,14 @@ class controller
 			printf("laser[180] === %f\n" ,laser_temp[180] ) ;
 			printf("laser[269] === %f\n" ,laser_temp[269] ) ;
 			printf("laser[270] === %f\n" ,laser_temp[270] ) ;
-			printf("laser[195] === %f\t" ,laser_temp[195] ) ;
-			printf("laser[225] === %f\t" ,laser_temp[225] ) ;
-			printf("laser[245] === %f\n" ,laser_temp[245] ) ;
-			printf("laser[115] === %f\t" ,laser_temp[115] ) ;
-			printf("laser[135] === %f\t" ,laser_temp[135] ) ;
-			printf("laser[165] === %f\n" ,laser_temp[165] ) ;
+			printf("laser[165] = %f\tlaser[125] = %f\tlaser[110] = %f\n", laser_temp[165], laser_temp[125], laser_temp[110]);
+            printf("laser[195] = %f\tlaser[235] = %f\tlaser[250] = %f\n", laser_temp[195], laser_temp[235], laser_temp[250]);
+
+
+            // printf("laser[210] = %f\tlaser[215] = %f\tlaser[220] = %f\n", laser_temp[210], laser_temp[215], laser_temp[220]);
+            // printf("laser[225] = %f\tlaser[230] = %f\tlaser[235] = %f\n", laser_temp[225], laser_temp[230], laser_temp[235]);
+            // printf("laser[240] = %f\tlaser[245] = %f\tlaser[250] = %f\n", laser_temp[240], laser_temp[245], laser_temp[250]);
+           
 		}
 		void fuzzy_in(int jj)
 		{   

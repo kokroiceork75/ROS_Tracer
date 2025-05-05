@@ -1,6 +1,37 @@
 scan_filter_chain:
-- name: angle_filter
-  type: laser_filters/LaserScanAngularBoundsFilter
+- name: exclude_back_left_part1
+  type: laser_filters/LaserScanAngularBoundsFilterInPlace
   params:
-    lower_angle: -1.5708   
-    upper_angle: 1.5708
+    lower_angle: 1.57     # 90°
+    upper_angle: 2.267    # 約 130°
+    invert: true          # 排除此範圍
+
+- name: exclude_back_left_part2
+  type: laser_filters/LaserScanAngularBoundsFilterInPlace
+  params:
+    lower_angle: 2.529    # 約 145°
+    upper_angle: 3.14     # 180°
+    invert: true          # 排除此範圍
+
+- name: exclude_back_right_part1
+  type: laser_filters/LaserScanAngularBoundsFilterInPlace
+  params:
+    lower_angle: -3.14    # -180°
+    upper_angle: -2.529   # 約 -145°
+    invert: true          # 排除此範圍
+
+- name: exclude_back_right_part2
+  type: laser_filters/LaserScanAngularBoundsFilterInPlace
+  params:
+    lower_angle: -2.267   # 約 -130°
+    upper_angle: -1.57    # -90°
+    invert: true          # 排除此範圍
+    
+#                (0)
+#                 |
+#          (90)---X---(-90)    
+#                 |
+#              (+-180)
+#
+    
+    
