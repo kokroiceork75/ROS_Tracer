@@ -34,8 +34,8 @@ using namespace std;
 const double dwall = 0.3;
 // danger_threshold現在是定值 不是變數
 double allow_goal_rms = 0.3;
-const double f_along = (dwall + 0.45 + 0.15); // front進沿牆，加多少根據經驗可修改
-const double s_along = (dwall + 0.50 + 0.15); // side,加多少根據經驗可修改
+const double f_along = (dwall + 0.45 + 0.05); // front進沿牆，加多少根據經驗可修改
+const double s_along = (dwall + 0.50 + 0.05); // side,加多少根據經驗可修改
 const double danger_threshold1 = (robot_margin + dwall), 
 				danger_threshold2 = (robot_margin + dwall) / cos(25 * M_PI / 180.0), 
 				danger_threshold3 = (0.132 + dwall) / sin(45 * M_PI / 180.0),
@@ -464,7 +464,7 @@ class cmd_sub_pub
                msg.linear.x = vel_a; // vel_a = vel from along wall
                msg.angular.z = angular_a;
                controller_flag.data = 2; // Obstacle Boundary Following 控制器
-               printf("++++++++++++++++++++++++++++++++  選擇：wei_move_along.cpp  ++++++++++++++++++++++++++++\n");
+               printf("++++++++++++++++++++++++++++++++  選擇：沿牆OBF  ++++++++++++++++++++++++++++\n");
                printf("left_min = %f\tright_min = %f\n", left_min, right_min);
             } 
             else 
@@ -473,7 +473,7 @@ class cmd_sub_pub
                msg.linear.x = vel_s; // vel_s = vel from search 
                msg.angular.z = angular_s;
                controller_flag.data = 1; // Target Search 控制器
-               printf("+++++++++++++++++++++++++++++++  選擇：wei_odom.cpp  ++++++++++++++++++++++++++++++\n");
+               printf("+++++++++++++++++++++++++++++++  選擇：尋標TT  ++++++++++++++++++++++++++++++\n");
                printf("left_min = %f\tright_min = %f\n", left_min, right_min);
             }
 
