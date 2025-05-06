@@ -62,6 +62,8 @@ https://github.com/lmark1/velodyne_simulator.git
 
 ### 下載QP solver to home/user/
 
+如果有引用到qpOASES, CMakeLists.txt要記得連結
+
 ```
 https://github.com/coin-or/qpOASES.git
 ```
