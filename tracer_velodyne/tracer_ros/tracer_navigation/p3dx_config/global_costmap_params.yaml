@@ -4,3 +4,6 @@ global_costmap:
   update_frequency: 10.0
   publish_frequency: 10.0
   static_map: true
+  width: 40.0   # 根據需要調整大小，例如40米
+  height: 40.0  # 根據需要調整大小，例如40米
+  resolution: 0.05  # 保持與common_params中相同的解析度
