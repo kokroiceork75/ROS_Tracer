@@ -19,8 +19,8 @@
 
 const double dwall = 0.3;
 double vel_adj = 0.5;			
-const double f_along = (dwall + 0.45 + 0.15); // front進沿牆，加多少根據經驗可修改
-const double s_along = (dwall + 0.50 + 0.15); // side,加多少根據經驗可修改
+const double f_along = (dwall + 0.45 + 0.25); // front進沿牆，加多少根據經驗可修改
+const double s_along = (dwall + 0.50 + 0.25); // side,加多少根據經驗可修改
 double robot_margin = 0.285;
 const double danger_threshold1 = (robot_margin + dwall), 
 				danger_threshold2 = (robot_margin + dwall) / std::cos(20 * M_PI / 180.0), 

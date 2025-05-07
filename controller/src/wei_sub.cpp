@@ -34,15 +34,15 @@ using namespace std;
 const double dwall = 0.3;
 // danger_threshold現在是定值 不是變數
 double allow_goal_rms = 0.3;
-const double f_along = (dwall + 0.45 + 0.15); // front進沿牆，加多少根據經驗可修改
-const double s_along = (dwall + 0.50 + 0.15); // side,加多少根據經驗可修改
+const double f_along = (dwall + 0.45 + 0.25); // front進沿牆，加多少根據經驗可修改
+const double s_along = (dwall + 0.50 + 0.25); // side,加多少根據經驗可修改
 const double danger_threshold1 = (robot_margin + dwall), 
 				danger_threshold2 = (robot_margin + dwall) / cos(25 * M_PI / 180.0), 
 				danger_threshold3 = (0.132 + dwall) / sin(45 * M_PI / 180.0),
             danger_threshold4 =  (0.132 + dwall) / sin(65 * M_PI / 180.0);// 0.132是雷達正前方到機器人邊緣的距離
 double goal_x, goal_y, goal_z;
 double theta_d; // final goal和機器人角度差
-double spin_left = 1.0, spin_right = -spin_left;
+double spin_left = 1.3, spin_right = -spin_left;
 int danger = 0, danger_flag = 0; // 2 for left, 3 for right
 
 
@@ -296,12 +296,12 @@ class cmd_sub_pub
          int k; // 用於 minimum 函數的索引
          // 檢查右側危險：165-170度、120-125度、105-110度的最小值
          double spin_dis = 0.51;
-         bool right_danger = (minimum(165, 171, k) <= spin_dis) || 
+         bool right_danger = (minimum(165, 176, k) <= spin_dis) || 
                            ((minimum(113, 118, k) <= spin_dis) /*&& (minimum(120, 126, k) <= spin_dis)*/) || 
                            (minimum(97, 103, k) <= spin_dis);
                            
          // 檢查左側危險：190-195度、230-235度、245-250度的最小值
-         bool left_danger = (minimum(190, 196, k) <= spin_dis) || 
+         bool left_danger = (minimum(185, 196, k) <= spin_dis) || 
                            ((minimum(242, 247, k) <= spin_dis) /*&& (minimum(235, 241, k) <= spin_dis)*/) || 
                            (minimum(257, 263, k) <= spin_dis);
          double mini_1 = minimum(165, 171, k), mini_2 = minimum(113, 118, k), mini_3 = minimum(97, 103, k), mini_4 = minimum(112, 117, k);

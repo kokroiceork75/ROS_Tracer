@@ -12,10 +12,10 @@
    	<!-- paper2 goal at (0, 4.5) -->
    	<!-- paper3 goal at (2, 5.5) -->
    	<!-- paper4 goal at (0, 6.5) -->
-   	<!-- paper goal at (, ) -->
-   	<!-- paper goal at (, ) -->
-   	<!-- paper goal at (, ) -->
-        <arg name="world_name" value="/home/user/gazebo_map/paper4.world"/>
+   	<!-- paper5 goal at (0, 1.5) -->
+   	<!-- paper6 goal at (, ) -->
+   	<!-- paper7 goal at (, ) -->
+        <arg name="world_name" value="/home/user/gazebo_map/paper5.world"/>
         
    	<!-- goal at (0, 15) -->
         <!-- <arg name="world_name" value="/home/user/gazebo_map/paper1.world"/> -->
