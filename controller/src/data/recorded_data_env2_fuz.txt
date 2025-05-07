@@ -1,1 +1,0 @@
-time	x	y	orientation_z	orientation_w	linear_vel	angular_vel

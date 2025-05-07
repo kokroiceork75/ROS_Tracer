@@ -42,7 +42,7 @@ const double danger_threshold1 = (robot_margin + dwall),
             danger_threshold4 =  (0.132 + dwall) / sin(65 * M_PI / 180.0);// 0.132是雷達正前方到機器人邊緣的距離
 double goal_x, goal_y, goal_z;
 double theta_d; // final goal和機器人角度差
-double spin_left = 1.3, spin_right = -spin_left;
+double spin_left = 0.8, spin_right = -spin_left;
 int danger = 0, danger_flag = 0; // 2 for left, 3 for right
 
 
@@ -295,7 +295,8 @@ class cmd_sub_pub
 
          int k; // 用於 minimum 函數的索引
          // 檢查右側危險：165-170度、120-125度、105-110度的最小值
-         double spin_dis = 0.51;
+         // 注意！！！！！！！！！！！！模擬是0.51,實做0.55
+         double spin_dis = 0.55;
          bool right_danger = (minimum(165, 176, k) <= spin_dis) || 
                            ((minimum(113, 118, k) <= spin_dis) /*&& (minimum(120, 126, k) <= spin_dis)*/) || 
                            (minimum(97, 103, k) <= spin_dis);
@@ -465,16 +466,18 @@ class cmd_sub_pub
                msg.angular.z = angular_a;
                controller_flag.data = 2; // Obstacle Boundary Following 控制器
                printf("++++++++++++++++++++++++++++++++  選擇：沿牆  OBF (╯•̀ὤ•́)╯  ++++++++++++++++++++++++++++\n");
-               printf("left_min = %f\tright_min = %f\n", left_min, right_min);
+               printf("strai_min = %f\tleft_min = %f\tright_min = %f\n", straight_min, left_min, right_min);
             } 
             else 
             {
                // 使用 wei_odom.cpp
                msg.linear.x = vel_s; // vel_s = vel from search 
                msg.angular.z = angular_s;
+               // msg.linear.x = vel_s * 0.8; // vel_s = vel from search 
+               // msg.angular.z = angular_s * 0.8;
                controller_flag.data = 1; // Target Search 控制器
                printf("+++++++++++++++++++++++++++++++  選擇：尋標  TT (*´∀ ˋ*)  ++++++++++++++++++++++++++++++\n");
-               printf("left_min = %f\tright_min = %f\n", left_min, right_min);
+               printf("strai_min = %f\tleft_min = %f\tright_min = %f\n", straight_min, left_min, right_min);
             }
 
          }

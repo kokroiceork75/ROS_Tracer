@@ -7,9 +7,9 @@ from tf.transformations import quaternion_from_euler
 
 class SingleWaypointNav:
     def __init__(self):
-        # 只定義一個目標點
-        x = -0.0
-        y = 1.5
+        # 只定義一個目標點 env2 at (0, 6)
+        x = 9.0
+        y = 1.0
         self.target = {"x": x, "y": y, "yaw": 0.07}
         
         self.distance_tolerance = 0.3
