@@ -37,7 +37,7 @@ const double P_Y = 1.0;
 const double P_YAW = 1.0; // 降低終端 yaw 權重
 
 const double GOAL_TOLERANCE = 0.15;
-const float WHEEL_DISTANCE = 0.3791;
+const float WHEEL_DISTANCE = 0.3791; // seems 0.34
 
 class MPCLocalPlanner {
 private:
