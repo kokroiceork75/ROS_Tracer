@@ -7,9 +7,15 @@ from tf.transformations import quaternion_from_euler
 
 class SingleWaypointNav:
     def __init__(self):
-        # 只定義一個目標點 env2 at (0, 6)
-        x = 9.0
-        y = 1.0
+        # 只定義一個目標點 
+        #<!-- paper1 goal at (0, 7) -->
+   	#<!-- paper2 goal at (0, 4.5) -->
+   	#<!-- paper3 goal at (2, 5.5) -->
+   	#<!-- paper4 goal at (0, 6.5) -->
+   	#<!-- paper5 goal at (0, 1.5) -->
+   	#<!-- paper6 goal at (3, 2.0) -->
+        x = 3.0
+        y = 2.0
         self.target = {"x": x, "y": y, "yaw": 0.07}
         
         self.distance_tolerance = 0.3

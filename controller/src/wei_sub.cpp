@@ -296,7 +296,7 @@ class cmd_sub_pub
          int k; // 用於 minimum 函數的索引
          // 檢查右側危險：165-170度、120-125度、105-110度的最小值
          // 注意！！！！！！！！！！！！模擬是0.51,實做0.55
-         double spin_dis = 0.55;
+         double spin_dis = 0.51;
          bool right_danger = (minimum(165, 176, k) <= spin_dis) || 
                            ((minimum(113, 118, k) <= spin_dis) /*&& (minimum(120, 126, k) <= spin_dis)*/) || 
                            (minimum(97, 103, k) <= spin_dis);

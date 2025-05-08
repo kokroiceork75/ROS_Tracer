@@ -34,10 +34,10 @@ def compute_total_distance(x_coords, y_coords):
     return dist
 
 def plot_single_path():
-    map_name = "narrow_wall"
+    map_name = "paper6"
     map_yaml_path = f"/home/user/{map_name}.yaml"
     map_path = f"/home/user/{map_name}.pgm"
-    data_path = "/home/user/wei_ws/src/controller/src/data/data.txt"
+    data_path = "/home/user/wei_ws/src/controller/src/data/data_mpc6.txt"
 
     try:
         with open(map_yaml_path, 'r') as yaml_file:
