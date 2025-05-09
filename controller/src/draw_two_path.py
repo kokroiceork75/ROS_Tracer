@@ -47,12 +47,12 @@ def compute_total_distance(x_coords, y_coords):
     return dist
 
 def plot_paths():
-    map_name = "paper6"
+    map_name = "paper4"
     map_yaml_path = f"/home/user/{map_name}.yaml"
     map_path = f"/home/user/{map_name}.pgm"
-    data_path = "/home/user/wei_ws/src/controller/src/data/data_fuzzy6-1.txt"
-    dwa_path = "/home/user/wei_ws/src/controller/src/data/data_dwa6.txt"
-    
+    data_path = "/home/user/wei_ws/src/controller/src/data/data_fuzzy4.txt"
+    dwa_path = "/home/user/wei_ws/src/controller/src/data/data_mpc4.txt"
+    #dwa_path = "/home/user/wei_ws/src/controller/src/data/data_dwa6.txt"
     try:
         with open(map_yaml_path, 'r') as yaml_file:
             map_params = yaml.safe_load(yaml_file)

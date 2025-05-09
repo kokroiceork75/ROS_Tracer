@@ -9,8 +9,8 @@
 
 // 全局變數
 double record_interval = 0.17; // 記錄間隔（秒）
-double allow_rms = 0.001;      // 距離閾值（米）
-std::string end_condition = "ctrl_c"; // 結束條件：distance, ctrl_c, both
+double allow_rms = 0.15;      // 距離閾值（米）
+std::string end_condition = "both"; // 結束條件：distance, ctrl_c, both
 
 std::string SAVE_PATH = "/home/user/wei_ws/src/controller/src/data/";
 std::ofstream dataFile;

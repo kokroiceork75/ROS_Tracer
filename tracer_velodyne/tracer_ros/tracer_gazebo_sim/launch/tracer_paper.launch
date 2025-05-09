@@ -14,7 +14,7 @@
    	<!-- paper4 goal at (0, 6.5) -->
    	<!-- paper5 goal at (0, 1.5) -->
    	<!-- paper7 goal at (, ) -->
-        <arg name="world_name" value="/home/user/gazebo_map/paper6.world"/>
+        <arg name="world_name" value="/home/user/gazebo_map/paper4.world"/>
         
    	<!-- goal at (0, 15) -->
         <!-- <arg name="world_name" value="/home/user/gazebo_map/paper1.world"/> -->

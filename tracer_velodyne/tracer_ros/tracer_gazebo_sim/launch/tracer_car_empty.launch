@@ -2,7 +2,7 @@
 
     <arg name="robot_namespace" default="/"/>
     <arg name="world_name" default="$(find tracer_gazebo_sim)/worlds/clearpath_playpen.world"/>
-	<arg name="x" default="-0.0"/>
+	<arg name="x" default="3.0"/>
     <arg name="y" default="-0.0"/>
     <arg name="z" default="0.0"/>
     <arg name="yaw" default="1.57"/>

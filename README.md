@@ -153,6 +153,8 @@ roslaunch tracer_navigation tracer_navigation_auto.launch
 
 [Fuzzy Navigation]
 
+注意：程式碼內檔案路徑記得要改
+
 ```
 roslaunch tracer_navigation tracer_navigation_fuzzy.launch 
 rosrun controller wei_move_along 

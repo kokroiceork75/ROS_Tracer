@@ -14,8 +14,8 @@ class SingleWaypointNav:
    	#<!-- paper4 goal at (0, 6.5) -->
    	#<!-- paper5 goal at (0, 1.5) -->
    	#<!-- paper6 goal at (3, 2.0) -->
-        x = 3.0
-        y = 2.0
+        x = 0.0
+        y = 6.5
         self.target = {"x": x, "y": y, "yaw": 0.07}
         
         self.distance_tolerance = 0.3

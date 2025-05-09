@@ -171,6 +171,8 @@ add_executable(custom_scan_filter src/custom_scan_filter.cpp)
 target_link_libraries(custom_scan_filter ${catkin_LIBRARIES})
 add_executable(an_mpc src/an_mpc.cpp)
 target_link_libraries(an_mpc ${catkin_LIBRARIES} ${QPOASES_LIBRARY})
+add_executable(wei_fuzzyTT src/wei_fuzzyTT.cpp)
+target_link_libraries(wei_fuzzyTT ${catkin_LIBRARIES})
 
 
 # --- 修改：編譯 wei_mpc ---

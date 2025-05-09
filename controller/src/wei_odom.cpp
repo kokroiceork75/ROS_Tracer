@@ -30,8 +30,8 @@
 #define position_target    "/home/user/wei_ws/src/controller/src/position_random/position_targetxx.txt"
 
 #define max_step 40000
-#define _out_varl 6   /*  輸出變數 (左輪&右輪) */
 #define _in_varl  3   /*  輸入變數    */  
+#define _out_varl 6   /*  輸出變數 (左輪&右輪) */
 #define _rule_number 10   /* 規則數 */ 
 #define  _max_rule  30    /* 開記憶體空間 */
 #define _rule_delta 10 
